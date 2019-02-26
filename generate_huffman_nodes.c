@@ -4,16 +4,14 @@
 
 struct node *generate_huffman_nodes(long int *pixel_frequency, int max_gray_value, int number_of_non_zero_values_in_the_frequency_array) {
 
-    int n_pairs = number_of_non_zero_values_in_the_frequency_array;
+    int n_pairs = number_of_non_zero_values_in_the_frequency_array - 1;
     struct node *huffman_node_arr = (struct node*) malloc((n_pairs) * sizeof(struct node));
-    int huffman_arr_idx = n_pairs - 1;
+    int huffman_arr_idx = n_pairs;
 
     int least_freq_idx = 0;
     int second_least_freq_idx = 0;
 
     while (huffman_arr_idx > 0) {
-
-        // printf("huffman pair: %d\n", huffman_arr_idx);
 
         least_freq_idx = 0;
         second_least_freq_idx = 0;
@@ -23,7 +21,6 @@ struct node *generate_huffman_nodes(long int *pixel_frequency, int max_gray_valu
             least_freq_idx++;
         }
 
-        // printf("least_freq is now: %d, second_least_freq: %d\n", least_freq_idx, second_least_freq_idx);
 
         //find the least freq in the frequency array
         for (int i=0; i <= MAX_GRAY ; i++) {
@@ -47,10 +44,8 @@ struct node *generate_huffman_nodes(long int *pixel_frequency, int max_gray_valu
 
         struct node huffman_pair;
 
-
         huffman_pair.first_value = least_freq_idx;
         huffman_pair.second_value = second_least_freq_idx;
-
         huffman_node_arr[huffman_arr_idx] = huffman_pair;
         huffman_arr_idx--;
 
