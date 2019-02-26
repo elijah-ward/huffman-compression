@@ -1,5 +1,6 @@
 # include <stdio.h>
 # include <stdlib.h>
+#include <limits.h>
 # include "libpnm.h"
 
 #ifndef _Q2_H_
