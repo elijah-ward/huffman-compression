@@ -13,35 +13,21 @@ struct treeNode * searchTree(struct treeNode *root, int value) {
     } else {
 
         if ( root->left != NULL ) {
-            treeNode left = searchParent(root->left, value);
-            if (left) {
+            struct treeNode *left = searchTree(root->left, value);
+            if (left != NULL) {
                 return left;
             }
         }
         if ( root->right != NULL ) {
-            return searchParent(root->right, value);
+            return searchTree(root->right, value);
         }
     }
     return NULL;
 }
 
-struct treeNode construct_huffman_tree(struct treeNode *root, struct node *nodes, number_of_nodes) {
-    if(root.value == -1) {
-        struct treeNode left_node;
-        struct treeNode right_node;
-        left_node.value = nodes[0].first_value;
-        right_node.value = nodes[0].second_value;
-
-        root->left = &left_node;
-        root->right = &right_node;
-    } else {
-
-    }
-}
-
 void addHuffmanPair(struct node *huffmanNode, struct treeNode *root) {
-    struct treeNode *subParentFirst = searchTree(root, node->first_value );
-    struct treeNode *subParentSecond = searchTree(root, node->second_value );
+    struct treeNode *subParentFirst = searchTree(root, huffmanNode->first_value );
+    struct treeNode *subParentSecond = searchTree(root, huffmanNode->second_value );
 
     if (subParentFirst == NULL && subParentSecond == NULL) {
         root->left = huffmanNode->first_value;
@@ -65,12 +51,12 @@ struct PGM_Image *huffman_decode_image( int image_width, int image_height, int m
 
     struct PGM_Image decomp_output_image;
 
-    tree_root = struct treeNode;
+    struct treeNode tree_root;
     tree_root.value = -1;
 
     for (int i=0;i<number_of_nodes;i++) {
         struct node curr_node = huffman_node[i];
-        addHuffmanPair(&curr_node, tree_root);
+        addHuffmanPair(&curr_node, &tree_root);
     }
 
 

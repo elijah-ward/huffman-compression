@@ -1,27 +1,28 @@
 #include "huffman_encode_image.h"
 
- // void printBinaryValue2(unsigned int num)
- // {
- //    char result[sizeof(num)*8];
- //    int count = 0;
- //    while(num)
- //    {
- //        result[count++] = ((num&1 == 1) ? '1' : '0');
- //        num>>=1;
- //    }
- //    if(count)
- //    {
- //        count--;
- //        while(count>=0)
- //        {
- //            putchar(result[count--]);
- //        }
- //    }
- //    else
- //    {
- //        putchar('0');
- //    }
- // }
+
+ void printBinaryValue2(unsigned int num)
+ {
+    char result[sizeof(num)*8];
+    int count = 0;
+    while(num)
+    {
+        result[count++] = ((num&1 == 1) ? '1' : '0');
+        num>>=1;
+    }
+    if(count)
+    {
+        count--;
+        while(count>=0)
+        {
+            putchar(result[count--]);
+        }
+    }
+    else
+    {
+        putchar('0');
+    }
+ }
 
 unsigned char *huffman_encode_image(struct PGM_Image *input_pgm_image, struct node *huffman_nodes,
     int number_of_nodes, long int* length_of_encoded_image_array) {
@@ -47,15 +48,13 @@ unsigned char *huffman_encode_image(struct PGM_Image *input_pgm_image, struct no
         codewords[first_idx] = first_code;
         codewords[second_idx] = second_code;
 
-        // printf("first_idx: %d, val: %d, second_idx:%d, val: %d\n ", first_idx, codewords[first_idx], second_idx, codewords[second_idx] );
-
     }
 
-   //  for (int i = 0; i <= max_gray_value; i++) {
-   //      printf("codeword at i: %d = ", i);
-   //      printBinaryValue2(codewords[i]);
-   //      printf("\n");
-   // }
+    for (int i = 0; i <= max_gray_value; i++) {
+        printf("codeword at i: %d = ", i);
+        printBinaryValue2(codewords[i]);
+        printf("\n");
+   }
 
 
     int height = input_pgm_image->height;
@@ -67,7 +66,6 @@ unsigned char *huffman_encode_image(struct PGM_Image *input_pgm_image, struct no
             *encoded_image_data = codewords[input_pgm_image->image[row][col]];
             int length = sizeof(codewords[input_pgm_image->image[row][col]]);
             *length_of_encoded_image_array += length;
-            // printf("adding codeword of size %d for pixel row: %d, col: %d\n",length,row,col);
             encoded_image_data += length * sizeof(unsigned char);
         }
     }
