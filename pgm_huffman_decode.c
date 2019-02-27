@@ -27,15 +27,14 @@ int main( int argc, char **argv ) {
 
     FILE *in_fp;
     in_fp = fopen(input_filename, "r");
-    // unsigned char *encoded_image_data = read_huffman_encoded_data( in_fp, &image_width, &image_height, &max_gray_value,
-    //     &number_of_nodes, &huffman_nodes, &length_of_encoded_image_array );
+    unsigned char *encoded_image_data = read_huffman_encoded_data( in_fp, &image_width, &image_height, &max_gray_value,
+        &number_of_nodes, &huffman_nodes, &length_of_encoded_image_array );
     if (in_fp != NULL) {
         fclose(in_fp);
     }
 
-
-    // struct PGM_Image *output_image = huffman_decode_image(image_width, image_height, max_gray_value, number_of_nodes,
-    //     huffman_nodes, length_of_encoded_image_array, encoded_image_data);
+    struct PGM_Image *output_image = huffman_decode_image(image_width, image_height, max_gray_value, number_of_nodes,
+        huffman_nodes, length_of_encoded_image_array, encoded_image_data);
 
     // save_PGM_Image(output_image, output_filename, 1);
     // free_PGM_Image(output_image);
