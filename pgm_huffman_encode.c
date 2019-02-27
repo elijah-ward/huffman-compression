@@ -6,16 +6,17 @@
 #include "huffman_encode_image.h"
 #include "store_huffman_encoded_data.h"
 
-int validate_params(int argc, char **argv) {
-    if (argc < 3) {
-        puts("Usage: ./pgm_huffman_encode [INPUT IMAGE FILE] [COMPRESSED OUTPUT FILENAME]");
+int validate_params(int argc) {
+    if (argc != 3) {
+        puts("Usage: ./pgm_huffman_encode [INPUT IMAGE FILENAME] [COMPRESSED OUTPUT FILENAME]");
         exit(0);
     }
+    return 0;
 }
 
 int main( int argc, char **argv ) {
 
-    validate_params(argc, argv);
+    validate_params(argc);
 
     char *input_filename = argv[1];
     char *output_filename = argv[2];
@@ -33,21 +34,18 @@ int main( int argc, char **argv ) {
 
     int num_nodes = non_zero_count - 1;
     long int length_of_encoded_image_array = 0;
-    // long int height = pgm_input_image.height;
-    // long int width = pgm_input_image.width;
-    // long int upper_bound_mem = height * width;
 
     unsigned char *encoded_image_data = huffman_encode_image(&pgm_input_image, huffman_nodes, num_nodes, &length_of_encoded_image_array);
 
     printf("%d is length of encode array\n", length_of_encoded_image_array);
 
     FILE *out_fp;
-    out_fp = fopen(output_filename, "w");
-    store_huffman_encoded_data(out_fp, height, width, max_gray_value, num_nodes, &length_of_encoded_image_array, huffman_nodes, &pgm_input_image);
+    out_fp = fopen(output_filename, "w+");
+    store_huffman_encoded_data(out_fp, height, width, max_gray_value, num_nodes, huffman_nodes, length_of_encoded_image_array, &pgm_input_image);
     fclose(out_fp);
 
     free_PGM_Image(&pgm_input_image);
-    free(encoded_image_data);
+    // free(encoded_image_data);
     free(huffman_nodes);
 
 }
